@@ -1,0 +1,306 @@
+/* ==== Universal ==== */
+
+* {
+	font-family: Calibri, sans-serif;
+	box-sizing: border-box;
+	user-select: none;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+/* ==== Header ==== */
+
+header {
+	text-align: center;
+	background-color: hsl(61, 86%, 77%);
+	margin-top: 85px;
+}
+
+h1 {
+	margin: 0;
+	font-size: 1.5rem;
+}
+
+/* ==== Game Info ==== */
+#main {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+#game-info {
+	display: flex;
+	background-color: #9cf791;
+	flex-direction: column;
+	height: 85px;
+	/* Stick this to the top so we can always see how we're doing monetarily */
+	position: fixed;
+	width: 100%;
+	top: 0;
+}
+
+#bank {
+	text-align: center;
+	font-size: 3rem;
+}
+
+#rate {
+	text-align: center;
+	font-size: 1.25rem;
+}
+
+#instructions {
+	width: 100%;
+	font-size: 2rem;
+	background-color: hsl(129, 86%, 77%);
+}
+
+#instruction-text {
+	display: block;
+	text-align: center;
+}
+
+/* ==== Progress Stars ==== */
+
+#stars {
+	display: none;
+	justify-content: space-around;
+	background-color: #f79191;
+}
+
+.star {
+	padding: 10px;
+	background-color: #f97c7c;
+	border-radius: 100%;
+}
+
+#phase-1-star,
+#phase-2-star,
+#phase-3-star {
+	display: none;
+}
+
+.star img {
+	display: block;
+	width: 50px;
+	height: 50px;
+}
+
+/* ==== Phase 1 Special ==== */
+#phase-1-special {
+	display: none;
+}
+
+#mentor-container {
+	width: 50%;
+	border: 1px solid black;
+	display: flex;
+}
+
+#student-container {
+	width: 50%;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	display: flex;
+}
+
+.phase-1-special-disabled {
+	background-color: #8B8B8B;
+}
+
+/* ==== Item Panel ==== */
+#buyable-container {
+	display: flex;
+	flex-direction: column;
+}
+
+#items {
+	display: flex;
+	flex-direction: column;
+}
+
+#item-phases {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+#item-header,
+#upgrades-header,
+#achievements-header {
+	text-align: center;
+	padding: 10px 0;
+	margin: 0;
+	background-color: hsl(197, 86%, 77%);
+	font-size: 2rem;
+}
+
+#phase-1-items {
+	margin-top: 0;
+	background-color: hsl(197, 86%, 77%);
+}
+
+#phase-2-items {
+	background-color: hsl(120, 86%, 77%);
+}
+
+#phase-3-items {
+	background-color: hsl(61, 85%, 77%);
+}
+
+#item-phases>div {
+	width: 100%;
+}
+
+.item {
+	display: flex;
+	flex-grow: 0;
+	border-bottom: 1px solid black;
+	user-select: none;
+}
+
+.disabled-item-1 {
+	background-color: hsl(197, 44%, 63%);
+}
+
+.disabled-item-2 {
+	background-color: hsl(120, 44%, 63%);
+}
+
+.disabled-item-3 {
+	background-color: hsl(61, 44%, 63%);
+}
+
+.owned {
+	text-align: center;
+	width: 50px;
+	font-size: 1.75rem;
+	padding: 6px 0;
+}
+
+.item-name {
+	font-weight: bold;
+}
+
+/* ==== Upgrades ==== */
+#upgrades {
+	display: flex;
+	flex-direction: column;
+}
+
+#upgrades-header {
+	background-color: #F791BC;
+}
+
+#upgrades-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.disabled-upgrade {
+	background-color: hsl(0, 0%, 75%);
+}
+
+.upgrade {
+	padding: 10px 0 10px 10px;
+	border-top: 1px solid black;
+}
+
+.upgrade-name {
+	font-weight: bold;
+}
+
+/* ==== Achievements ==== */
+#achievements-header {
+	background-color: hsl(261, 86%, 77%);
+}
+
+#achievements {
+	margin-bottom: 1rem;
+}
+
+.achievement {
+	padding: 10px 0 10px 10px;
+	border-top: 1px solid black;
+}
+
+.achievement-unlocked {
+	font-size: 1.5rem;
+}
+
+.achievement-name {
+	font-weight: bold;
+	padding: 0px 5px;
+}
+
+.achievement-disabled {
+	font-size: 1.5rem;
+	background-color: #aaaaaa;
+}
+
+.achievement-lock {
+	display: block;
+	width: 20px;
+	margin: 0 auto;
+	background-color: #333333;
+}
+
+/* ==== Statistics ==== */
+#stats-link-container {
+	margin: 0 auto 1rem auto;
+	padding: 1rem;
+	background-color: hsl(19, 91%, 69%);
+	border-radius: 50px;
+}
+
+#stats-link,
+#close-stats {
+	text-decoration: none;
+	font-size: 2rem;
+}
+
+#stats-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(127, 127, 127, 0.5);
+	z-index: 1;
+}
+
+#stats-page {
+	display: none;
+	position: fixed;
+	z-index: 2;
+	top: 10%;
+	left: 0;
+	right: 0;
+	width: 350px;
+	margin: 0 auto;
+	background-color: #42f489;
+	padding: 1rem;
+}
+
+#stats-page h2 {
+	text-align: center;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* ==== Media Queries ==== */
+@media screen and (min-width: 800px) {
+	#buyable-container {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	#buyable-container>div {
+		flex: 1;
+	}
+}

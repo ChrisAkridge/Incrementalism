@@ -1,0 +1,156 @@
+* {
+	margin: 0;
+	font-family: Calibri;
+}
+
+h1 {
+	text-align: center;
+	font-family: Calibri;
+	display: block;
+	background-color: #dfdfff;
+	padding: 5px 0;
+}
+
+.container {
+	display: flex;
+	height: 100%;
+}
+
+.left {
+	width: 50%;
+	background-color: #dfdfdf;
+}
+
+.left p {
+	color: white;
+	display: block;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	margin: 0 5px 5px 5px;
+	text-align: center;
+	font-family: Calibri;
+	font-size: 1.25em;
+	background-color: #2fff2f;
+	border-radius: 12px;
+}
+
+.right {
+	width: 50%;
+}
+
+#bank {
+	font-size: 3em;
+	text-align: center;
+	user-select: none;
+}
+
+#rate {
+	font-size: 1.5em;
+	text-align: center;
+}
+
+#buildingContainer {
+	background: #ffff8f;
+	display: flex;
+}
+
+.building {
+	width: 90px;
+	height: 90px;
+	border: 1px solid black;
+	text-align: center;
+	user-select: none;
+}
+
+.buildingName {
+}
+
+.buildingCost {
+	font-size: 0.75rem;
+}
+
+.buildingRate {
+	font-size: 0.75rem;
+}
+
+.buildingOwned {
+	font-size: 0.75rem;
+}
+
+#upgradeContainer {
+	margin-top: 10px;
+	background-color: #efefff;
+}
+
+.upgrade {
+	margin: 10px;
+	padding: 10px;
+	border: 1px solid black;
+}
+
+.upgradeName {
+	font-weight: bold;
+}
+
+.upgradeDesc {
+	font-size: 75%;
+	letter-spacing: 0.05em;
+}
+
+.upgradeInfo::before {
+	content: "Cost: ";
+}
+
+.disabled {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* ==== Bank BG Colors ==== */
+.bg-1 { background-color: #ff9191}
+.bg-2 { background-color: #ffc091}
+.bg-3 { background-color: #fff491}
+.bg-4 { background-color: #bbff91}
+.bg-5 { background-color: #91ffb4}
+.bg-6 { background-color: #91a9ff}
+.bg-7 { background-color: #bd91ff}
+.bg-8 { background-color: #f791ff}
+.bg-9 { background-color: #ff91bb}
+.bg-10 { background-color: #ff9191}
+
+/* ==== Story Stage Stars ==== */
+#stars {
+	display: none;
+}
+
+.star img {
+	max-width: 100%;
+}
+
+.star {
+	width: 50px;
+	height: 50px;
+}
+
+/* ==== Stage 2 Divs ==== */
+#stage2Boxes {
+	display: none;
+	background-color: #cfefff;
+	font-size: 80%;
+	user-select: none;
+}
+
+.bold {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+#mentorBox {
+	padding: 5px 10px;
+	border: 1px solid black;
+}
+
+#studentBox {
+	padding: 5px 10px;
+	border: 1px solid black;
+	flex-grow: 1;
+}

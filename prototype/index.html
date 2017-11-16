@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="styles.css" type="text/css">
+	</head>
+	<body>
+		<h1>Hello, world!</h1>
+	</body>
+	
+	<div class="container">
+		<div class="left">
+			<p>Item 1</p>
+			<p>Item 2</p>
+			<p>Item 3</p>
+			<p class="cheat">Item 4</p>
+			<p>Item 5</p>
+			<p>Item 6</p>
+			<p>Item 7</p>
+		</div>
+		
+		<div class="right">
+			<div id="bank">0</div>
+			<div id="rate">0 per second</div>
+			
+			<div id="stars">
+				<div class="star" id="star0">
+					<img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Five_Pointed_Star_Solid.svg">
+				</div>
+			</div>
+			
+			<div id="buildingContainer">
+				<div class="building" id="building0">
+					<p class="buildingName">HDMI Cables</p>
+					<p class="buildingCost" id="buildingCost0">
+						Cost: 10
+					</p>
+					<p class="buildingRate" id="buildingRate0">
+						Rate: 0.1
+					</p>
+					<p class="buildingOwned" id="buildingOwned0">
+						Owned: 0
+					</p>
+				</div>
+				<div class="building" id="building1">
+					<p class="buildingName">Whiteboard Walls</p>
+					<p class="buildingCost" id="buildingCost1">
+						Cost: 125
+					</p>
+					<p class="buildingRate" id="buildingRate1">
+						Rate: 2
+					</p>
+					<p class="buildingOwned" id="buildingOwned1">
+						Owned: 0
+					</p>
+				</div>
+				<div class="building" id="building2">
+					<p class="buildingName">SMART Board</p>
+					<p class="buildingCost" id="buildingCost2">
+						Cost: 375
+					</p>
+					<p class="buildingRate" id="buildingRate2">
+						Rate: 8
+					</p>
+					<p class="buildingOwned" id="buildingOwned2">
+						Owned: 0
+					</p>
+				</div>
+				<div class="building" id="building3">
+					<p class="buildingName">Lighting Decks</p>
+					<p class="buildingCost" id="buildingCost3">
+						Cost: 1250
+					</p>
+					<p class="buildingRate" id="buildingRate3">
+						Rate: 17.5
+					</p>
+					<p class="buildingOwned" id="buildingOwned3">
+						Owned: 0
+					</p>
+				</div>
+			</div>
+			
+			<div id="stage2Boxes">
+				<div id="mentorBox">
+					<p class="bold">Bring In a Mentor</p>
+					<p id="mentorInfo">Cost: 1000 | Mentors: 0</p>
+					<p>Buildings are 1% cheaper per mentor.</p>
+				</div>
+				<div id="studentBox">
+					<p class="bold">Enroll a Student</p>
+					<p id="studentInfo">Cost: 950 | Students: 0</p>
+					<p>Rate +1% per student.</p>
+				</div>
+			</div>
+			
+			<div id="upgradeContainer">
+			</div>
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+		<script src="scripts.js" type="text/javascript"></script>
+	</div>
+</html>
