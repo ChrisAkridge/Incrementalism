@@ -146,10 +146,12 @@ h1 {
 
 #phase-2-items {
 	background-color: hsl(120, 86%, 77%);
+	display: none;
 }
 
 #phase-3-items {
 	background-color: hsl(61, 85%, 77%);
+	display: none;
 }
 
 #item-phases>div {

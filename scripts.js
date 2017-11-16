@@ -433,6 +433,8 @@ var completeClassroom = {
 		$("#stars").css('display', 'flex');
 		$("#phase-1-star").show();
 		$("#phase-1-special").css('display', 'flex');
+		$("#phase-2-items").css('display', 'flex');
+		$("#phase-2-items").css('flex-direction', 'column');
 		unlockAchievement(29);
 	}
 };
@@ -601,6 +603,8 @@ var startTheCourses = {
 		$("#stars").css('display', 'flex');
 		$("#phase-2-star").show();
 		// $("#phase-1-special").css('display', 'flex');
+		$("#phase-3-items").css('display', 'flex');
+		$("#phase-3-items").css('flex-direction', 'column');
 	}
 };
 upgrades.push(startTheCourses);
@@ -685,25 +689,23 @@ var students = {
 // ==== Build HTML for Items, Upgrades, and Achievements
 
 function buildItemHTML(item, index) {
-	if (/* phasesUnlocked[item.phase - 1] */ true) {
-		var itemsDivName = "#phase-" + item.phase + "-items";
-		var itemsDiv = $(itemsDivName);
-		itemsDiv.append('<div class="item" id="item-' + index + '"></div>');
+	var itemsDivName = "#phase-" + item.phase + "-items";
+	var itemsDiv = $(itemsDivName);
+	itemsDiv.append('<div class="item" id="item-' + index + '"></div>');
 
-		var itemHTML = $("#item-" + index);
-		itemHTML.addClass("disabled-item-" + item.phase);
-		itemHTML.append('<div class="owned" id="owned-' + index + '">0</div>');
-		itemHTML.append('<div class="item-info-container">');
+	var itemHTML = $("#item-" + index);
+	itemHTML.addClass("disabled-item-" + item.phase);
+	itemHTML.append('<div class="owned" id="owned-' + index + '">0</div>');
+	itemHTML.append('<div class="item-info-container">');
 
-		var infoContainer = itemHTML.find('.item-info-container');
-		infoContainer.append('<div class="item-name"></div>');
-		infoContainer.append('<div class="item-cost" id="cost-' + index + '"></div>');
-		infoContainer.append('<div class="item-rate" id="rate-' + index + '"></div>');
+	var infoContainer = itemHTML.find('.item-info-container');
+	infoContainer.append('<div class="item-name"></div>');
+	infoContainer.append('<div class="item-cost" id="cost-' + index + '"></div>');
+	infoContainer.append('<div class="item-rate" id="rate-' + index + '"></div>');
 
-		infoContainer.find('.item-name').html(item.name);
-		$("#cost-" + index).html('Cost: ' + beautify(item.cost));
-		$("#rate-" + index).html('Rate: ' + beautify(item.rate));
-	}
+	infoContainer.find('.item-name').html(item.name);
+	$("#cost-" + index).html('Cost: ' + beautify(item.cost));
+	$("#rate-" + index).html('Rate: ' + beautify(item.rate));
 }
 
 function buildUpgradeHTML(upgrade, index) {
@@ -1084,6 +1086,9 @@ function oncePerSecondUpdate() {
 	updateStatsPanel();
 	checkAchievements();
 	checkItemsOwnedAchievements(1);
+
+	// Update the page title to reflect how many units the user has.
+	document.title = beautify(bank, 3) + " units - Incrementalism";
 }
 
 setInterval(oncePerSecondUpdate, 1000);
