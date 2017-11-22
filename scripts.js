@@ -40,6 +40,7 @@ var upgrades = [];
 var achievements = [];
 
 // ==== Items ====
+// Phase 1
 var hdmiCables = {
 	name: "HDMI Cables",
 	phase: 1,
@@ -144,6 +145,7 @@ var lightingDeck = {
 };
 items.push(lightingDeck);
 
+// Phase 2
 var wioaPaperwork = {
 	name: "WIOA Paperwork",
 	phase: 2,
@@ -154,6 +156,10 @@ var wioaPaperwork = {
 	onBuy: function() {
 		standUpGuide.checkRate();
 		updateItemInfo(6 /* Stand-up Guide */)
+
+		if (this.owned >= 1) { unlockAchievement(38); }
+		if (this.owned >= 10) { unlockAchievement(39); }
+		if (this.owned >= 50) { unlockAchievement(40); }
 	}
 };
 items.push(wioaPaperwork);
@@ -165,7 +171,11 @@ var orientationPresentation = {
 	rate: 75,
 	owned: 0,
 	totalRate: 0,
-	onBuy: function() {},
+	onBuy: function() {
+		if (this.owned >= 1) { unlockAchievement(41); }
+		if (this.owned >= 10) { unlockAchievement(42); }
+		if (this.owned >= 50) { unlockAchievement(43); }
+	},
 	checkRate: function() {
 		if (conciseExplanation.bought) { this.rate *= 2; }
 
@@ -186,6 +196,10 @@ var standUpGuide = {
 			hdmiCables.checkRate();
 			updateItemInfo(0 /* HDMI Cables */)
 		}
+
+		if (this.owned >= 1) { unlockAchievement(44); }
+		if (this.owned >= 10) { unlockAchievement(45); }
+		if (this.owned >= 50) { unlockAchievement(46); }
 	},
 	checkRate: function() {
 		if (!enrollmentParking.bought) {
@@ -213,10 +227,15 @@ var frontEndClassProject = {
 	onBuy: function() {
 		lightingDeck.checkRate();
 		updateItemInfo(3 /* Lighting Deck */);
+
+		if (this.owned >= 1) { unlockAchievement(47); }
+		if (this.owned >= 10) { unlockAchievement(48); }
+		if (this.owned >= 50) { unlockAchievement(49); }
 	}
 };
 items.push(frontEndClassProject);
 
+// Phase 3
 var treehouseCourses = {
 	name: "Treehouse Courses",
 	phase: 3,
@@ -224,7 +243,8 @@ var treehouseCourses = {
 	rate: 1090,
 	owned: 0,
 	totalRate: 0,
-	onBuy: function() {}
+	onBuy: function() {
+	}
 };
 items.push(treehouseCourses);
 
@@ -235,7 +255,8 @@ var githubAccount = {
 	rate: 4320,
 	owned: 0,
 	totalRate: 0,
-	onBuy: function() {}
+	onBuy: function() {
+	}
 };
 items.push(githubAccount);
 
@@ -246,7 +267,8 @@ var techEvents = {
 	rate: 8900,
 	owned: 0,
 	totalRate: 0,
-	onBuy: function() {}
+	onBuy: function() {
+	}
 };
 items.push(techEvents);
 
@@ -268,6 +290,7 @@ for (var i in items) {
 }
 
 /* ==== Upgrades ==== */
+// Phase 1
 var touchpad = {
 	name: "Touchpad",
 	desc: "Your clicking power is doubled.",
@@ -440,6 +463,8 @@ var completeClassroom = {
 };
 upgrades.push(completeClassroom);
 
+// Phase 2
+
 var opticalWirelessMouse = {
 	name: 'Optical Wireless Mouse',
 	desc: 'Clicking gains another +10% of your rate.',
@@ -600,6 +625,7 @@ var startTheCourses = {
 
 		/* Phase II is completed! */
 		phasesUnlocked[2] = true;
+		unlockAchievement(53);
 		$("#stars").css('display', 'flex');
 		$("#phase-2-star").show();
 		// $("#phase-1-special").css('display', 'flex');
@@ -609,7 +635,205 @@ var startTheCourses = {
 };
 upgrades.push(startTheCourses);
 
-upgrades.sort(function(a, b) { return b - a; });
+// Phase 3
+
+var trackballMouse = {
+	name: 'Trackball Mouse',
+	desc: 'Clicking gains another +10% of your rate.',
+	phase: 3,
+	checkUnlock: function() {
+		return totalUnitsMadeFromClicking >= 360e6;
+	},
+	unlocked: false,
+	cost: 420e6,
+	bought: false,
+	onBuy: function() {
+		clickPercentOfRate += 0.1;
+		recalcUnitsPerClick();
+	}
+}
+upgrades.push(trackballMouse);
+
+var multitouchScreen = {
+	name: 'Multi-Touch Screen',
+	desc: 'Clicking gains the last +10% of your rate.',
+	phase: 3,
+	checkUnlock: function() {
+		return totalUnitsMadeFromClicking >= 10.8e9;
+	},
+	unlocked: false,
+	cost: 168e9,
+	bought: false,
+	onBuy: function() {
+		clickPercentOfRate += 0.1;
+		recalcUnitsPerClick();
+	}
+}
+upgrades.push(multitouchScreen);
+
+var speedControls = {
+	name: 'Speed Controls',
+	desc: 'Tech Events get +1% for every Treehouse Course you own. Treehouse Courses get +5% for every Tech Event you own.',
+	phase: 3,
+	checkUnlock: function() {
+		return bank >= 1e6;
+	},
+	unlocked: false,
+	cost: 10e6,
+	bought: false,
+	onBuy: function() {
+		/* IMPLEMENT */
+	}
+}
+upgrades.push(speedControls);
+
+var pullRequests = {
+	name: 'Pull Requests',
+	desc: 'GitHub Accounts get +0.1% for every HDMI Cable owned. HDMI Cables get +400% for every GitHub Account owned.',
+	phase: 3,
+	checkUnlock: function() {
+		return speedControls.bought;
+	},
+	unlocked: false,
+	cost: 10e9,
+	bought: false,
+	onBuy: function() {
+		/* IMPLEMENT */
+	}
+}
+upgrades.push(pullRequests);
+
+var hackathon = {
+	name: 'Hackathon',
+	desc: 'Tech Events get +2% for every WIOA Paperwork you own. WIOA Paperworks get +50% for every Tech Event you own.',
+	phase: 3,
+	checkUnlock: function() {
+		return pullRequests.bought;
+	},
+	unlocked: false,
+	cost: 10e12,
+	bought: false,
+	onBuy: function() {
+		/* IMPLEMENT */
+	}
+}
+upgrades.push(hackathon);
+
+var readme = {
+	name: 'README.md',
+	desc: 'Final Projects get +0.01% for every other item owned.',
+	phase: 3,
+	checkUnlock: function() {
+		return hackathon.bought;
+	},
+	unlocked: false,
+	cost: 10e15,
+	bought: false,
+	onBuy: function() {
+		/* IMPLEMENT */
+	}
+}
+upgrades.push(readme);
+
+var storeLoyaltyCard = {
+	name: 'Store Loyalty Card',
+	desc: 'Each manager now reduces item prices by 5%.',
+	phase: 3,
+	checkUnlock: function() {
+		return readme.bought;
+	},
+	unlocked: false,
+	cost: 10e18,
+	bought: false,
+	onBuy: function() {
+		/* IMPLEMENT */
+	}
+}
+upgrades.push(storeLoyaltyCard);
+
+var exponentialGrowth = {
+	name: 'Exponential Growth',
+	desc: 'Each students now increases the rate by 5%.',
+	phase: 3,
+	checkUnlock: function() {
+		return storeLoyaltyCard.bought;
+	},
+	unlocked: false,
+	cost: 10e21,
+	bought: false,
+	onBuy: function() {
+		/* IMPLEMENT */
+	}
+}
+upgrades.push(exponentialGrowth);
+
+var responsiveDesign = {
+	name: 'Responsive Design',
+	desc: '<em>Improves the power of the Phase III special</em>',
+	phase: 3,
+	checkUnlock: function() {
+		return exponentialGrowth.bought;
+	},
+	unlocked: false,
+	cost: 10e24,
+	bought: false,
+	onBuy: function() {
+		/* IMPLEMENT */
+	}
+}
+upgrades.push(responsiveDesign);
+
+var marketStreet = {
+	name: 'Market Street',
+	desc: 'All income is tripled.',
+	phase: 3,
+	checkUnlock: function() {
+		return responsiveDesign.bought;
+	},
+	unlocked: false,
+	cost: 10e27,
+	bought: false,
+	onBuy: function() {
+		multiplier *= 3;
+	}
+}
+upgrades.push(marketStreet);
+
+var pleaseAndThankYou = {
+	name: 'Please and Thank You',
+	desc: 'All income is quadrupled.',
+	phase: 3,
+	checkUnlock: function() {
+		return marketStreet.bought;
+	},
+	unlocked: false,
+	cost: 10e27,
+	bought: false,
+	onBuy: function() {
+		multiplier *= 4;
+	}
+}
+upgrades.push(pleaseAndThankYou);
+
+var codeLouisville = {
+	name: 'Code Louisville',
+	desc: 'All income is multiplied by 10. All prices cut by 99.9999%.',
+	phase: 3,
+	checkUnlock: function() {
+		return responsiveDesign.bought;
+	},
+	unlocked: false,
+	cost: 10e33,
+	bought: false,
+	onBuy: function() {
+		multiplier *= 10;
+		/* IMPLEMENT 99.9999% DISCOUNT */
+		/* ALSO WIN THE GAME */
+	}
+}
+upgrades.push(codeLouisville);
+
+upgrades.sort(function(a, b) { return b.cost - a.cost; });
 
 var upgradesByPhase = [[], [], []];
 for (var i in upgrades) {
@@ -617,36 +841,66 @@ for (var i in upgrades) {
 }
 
 // ==== Achievements ====
-achievements.push({name: "A Thought", desc: "Earn 1 unit.", unlocked: false});
-achievements.push({name: "An Idea", desc: "Earn 10 units.", unlocked: false});
-achievements.push({name: "Research", desc: "Earn 100 units.", unlocked: false});
-achievements.push({name: "Team-building", desc: "Earn 1,000 units.", unlocked: false});
-achievements.push({name: "Office Purchase", desc: "Earn 10,000 units.", unlocked: false});
-achievements.push({name: "Earn It", desc: "Click for 1 unit.", unlocked: false});
-achievements.push({name: ".click()", desc: "Click for 10 units.", unlocked: false});
-achievements.push({name: "Mouse-Up", desc: "Click for 100 units.", unlocked: false});
-achievements.push({name: "Callbacks", desc: "Click for 1,000 units.", unlocked: false});
-achievements.push({name: "Penny Stocks", desc: "Reach a rate of 0.1 units/second.", unlocked: false});
-achievements.push({name: "Low-Yield Bonds", desc: "Reach a rate of 1 unit/second.", unlocked: false});
-achievements.push({name: "Inflow", desc: "Reach a rate of 10 units/second.", unlocked: false});
-achievements.push({name: "Income", desc: "Reach a rate of 100 units/second.", unlocked: false});
-achievements.push({name: "Interest", desc: "Reach a rate of 1,000 units/second.", unlocked: false});
-achievements.push({name: 'Unified Media Transport', desc: 'Buy 1 HDMI Cable.', unlocked: false});
-achievements.push({name: '19 Pins', desc: 'Buy 10 HDMI Cables.', unlocked: false});
-achievements.push({name: '2160p60', desc: 'Buy 50 HDMI Cables.', unlocked: false});
-achievements.push({name: 'Dry-Erase', desc: 'Buy 1 Whiteboard Wall.', unlocked: false});
-achievements.push({name: 'Glossy Acrylic', desc: 'Buy 10 Whiteboard Walls.', unlocked: false});
-achievements.push({name: 'Heit\'s Legacy', desc: 'Buy 50 Whiteboard Walls.', unlocked: false});
-achievements.push({name: 'Interactivity', desc: 'Buy 1 SMART Board.', unlocked: false});
-achievements.push({name: 'Wireless Learning', desc: 'Buy 10 SMART Boards.', unlocked: false});
-achievements.push({name: 'Integrated Tech', desc: 'Buy 50 SMART Boards.', unlocked: false});
-achievements.push({name: 'Candela', desc: 'Buy 1 Lighting Deck.', unlocked: false});
-achievements.push({name: 'Lux', desc: 'Buy 10 Lighting Decks.', unlocked: false});
-achievements.push({name: 'Lumen', desc: 'Buy 50 Lighting Decks.', unlocked: false});
-achievements.push({name: 'Shop Around', desc: 'Buy 1 of every Phase I item.', unlocked: false});
-achievements.push({name: 'Quality Brand', desc: 'Buy 10 of every Phase I item.', unlocked: false});
-achievements.push({name: 'Preferred Shopper', desc: 'Buy 50 of every Phase I item.', unlocked: false});
-achievements.push({name: 'The Start of It All', desc: 'Buy "Complete Classroom".', unlocked: false});
+// Phase 1
+achievements.push({name: "A Thought", desc: "Earn 1 unit.", unlocked: false}); // 0
+achievements.push({name: "An Idea", desc: "Earn 10 units.", unlocked: false}); // 1
+achievements.push({name: "Research", desc: "Earn 100 units.", unlocked: false}); // 2
+achievements.push({name: "Team-building", desc: "Earn 1,000 units.", unlocked: false}); // 3
+achievements.push({name: "Office Purchase", desc: "Earn 10,000 units.", unlocked: false}); // 4
+achievements.push({name: "Earn It", desc: "Click for 1 unit.", unlocked: false}); // 5
+achievements.push({name: ".click()", desc: "Click for 10 units.", unlocked: false}); // 6
+achievements.push({name: "Mouse-Up", desc: "Click for 100 units.", unlocked: false}); // 7
+achievements.push({name: "Callbacks", desc: "Click for 1,000 units.", unlocked: false}); // 8
+achievements.push({name: "Penny Stocks", desc: "Reach a rate of 0.1 units/second.", unlocked: false}); // 9
+achievements.push({name: "Low-Yield Bonds", desc: "Reach a rate of 1 unit/second.", unlocked: false}); // 10
+achievements.push({name: "Inflow", desc: "Reach a rate of 10 units/second.", unlocked: false}); // 11
+achievements.push({name: "Income", desc: "Reach a rate of 100 units/second.", unlocked: false}); // 12
+achievements.push({name: "Interest", desc: "Reach a rate of 1,000 units/second.", unlocked: false}); // 13
+achievements.push({name: 'Unified Media Transport', desc: 'Buy 1 HDMI Cable.', unlocked: false}); // 14
+achievements.push({name: '19 Pins', desc: 'Buy 10 HDMI Cables.', unlocked: false}); // 15
+achievements.push({name: '2160p60', desc: 'Buy 50 HDMI Cables.', unlocked: false}); // 16
+achievements.push({name: 'Dry-Erase', desc: 'Buy 1 Whiteboard Wall.', unlocked: false}); // 17
+achievements.push({name: 'Glossy Acrylic', desc: 'Buy 10 Whiteboard Walls.', unlocked: false}); // 18
+achievements.push({name: 'Heit\'s Legacy', desc: 'Buy 50 Whiteboard Walls.', unlocked: false}); // 19
+achievements.push({name: 'Interactivity', desc: 'Buy 1 SMART Board.', unlocked: false}); // 20
+achievements.push({name: 'Wireless Learning', desc: 'Buy 10 SMART Boards.', unlocked: false}); // 21
+achievements.push({name: 'Integrated Tech', desc: 'Buy 50 SMART Boards.', unlocked: false}); // 22
+achievements.push({name: 'Candela', desc: 'Buy 1 Lighting Deck.', unlocked: false}); // 23
+achievements.push({name: 'Lux', desc: 'Buy 10 Lighting Decks.', unlocked: false}); // 24
+achievements.push({name: 'Lumen', desc: 'Buy 50 Lighting Decks.', unlocked: false}); // 25
+achievements.push({name: 'Shop Around', desc: 'Buy 1 of every Phase I item.', unlocked: false}); // 26
+achievements.push({name: 'Quality Brand', desc: 'Buy 10 of every Phase I item.', unlocked: false}); // 27
+achievements.push({name: 'Preferred Shopper', desc: 'Buy 50 of every Phase I item.', unlocked: false}); // 28
+achievements.push({name: 'The Start of It All', desc: 'Buy "Complete Classroom".', unlocked: false}); // 29
+
+// Phase 2
+achievements.push({name: 'Word-of-Mouth', desc: 'Earn 100,000 units.', unlocked: false}); // 30
+achievements.push({name: 'Visit Our Website', desc: 'Earn 1,000,000 units.', unlocked: false}); // 31
+achievements.push({name: 'Waiting List', desc: 'Earn 10,000,000 units.', unlocked: false}); // 32
+achievements.push({name: 'Pre-Work', desc: 'Earn 100,000,000 units.', unlocked: false}); // 33
+achievements.push({name: 'Orientation', desc: 'Earn 1 billion units.', unlocked: false}); // 34
+achievements.push({name: 'Dividends', desc: 'Reach a rate of 10,000 units/second.', unlocked: false}); // 35
+achievements.push({name: 'Capital Gains', desc: 'Reach a rate of 100,000 units/second.', unlocked: false}); // 36
+achievements.push({name: 'Certificate of Deposit', desc: 'Reach a rate of 1,000,000 units/second.', unlocked: false}); // 37
+achievements.push({name: 'Sign Here, Please', desc: 'Own 1 WIOA Paperwork.', unlocked: false}); // 38
+achievements.push({name: 'Legal Procedure', desc: 'Own 10 WIOA Paperworks.', unlocked: false}); // 39
+achievements.push({name: 'Read Carefully', desc: 'Own 50 WIOA Paperworks.', unlocked: false}); // 40
+achievements.push({name: 'Welcome to the Library', desc: 'Own 1 Orientation Presentation.', unlocked: false}); // 41
+achievements.push({name: 'The Conference Hall', desc: 'Own 10 Orientation Presentations.', unlocked: false}); // 42
+achievements.push({name: 'Welcome to the Program', desc: 'Own 50 Orientation Presentations.', unlocked: false}); // 43
+achievements.push({name: 'What are You Working On?', desc: 'Own 1 Stand-Up Guide.', unlocked: false}); // 44
+achievements.push({name: 'Are You Stuck on Anything?', desc: 'Own 10 Stand-Up Guides.', unlocked: false}); // 45
+achievements.push({name: 'What is Your Plan for the Week?', desc: 'Own 50 Stand-Up Guides.', unlocked: false}); // 46
+achievements.push({name: 'The GitHub Repository', desc: 'Own 1 Front-end Class Project.', unlocked: false}); // 47
+achievements.push({name: 'First Commit', desc: 'Own 10 Front-end Class Projects.', unlocked: false}); // 48
+achievements.push({name: 'The Work for the Meetings', desc: 'Own 50 Front-end Class Projects.', unlocked: false}); // 49
+achievements.push({name: 'The Student\'s Path', desc: 'Own 1 of every Phase II Item.', unlocked: false}); // 50
+achievements.push({name: 'Proper Direction', desc: 'Own 10 of every Phase II Item.', unlocked: false}); // 51
+achievements.push({name: 'Ready for the Course', desc: 'Own 50 of every Phase II Item.', unlocked: false}); // 52
+achievements.push({name: 'Everything\'s Ready', desc: 'Buy "Start the Courses!"', unlocked: false}); // 53
+
+
+
 
 // ==== Phase 1 Specials ====
 var mentors = {
@@ -1044,6 +1298,11 @@ function checkAchievements() {
 	if (totalUnitsEarned >= 100) { unlockAchievement(2); }
 	if (totalUnitsEarned >= 1000) { unlockAchievement(3); }
 	if (totalUnitsEarned >= 10000) { unlockAchievement(4); }
+	if (totalUnitsEarned >= 100000) { unlockAchievement(30); }
+	if (totalUnitsEarned >= 1e6) { unlockAchievement(31); }
+	if (totalUnitsEarned >= 10e6) { unlockAchievement(32); }
+	if (totalUnitsEarned >= 100e6) { unlockAchievement(33); }
+	if (totalUnitsEarned >= 1e9) { unlockAchievement(34); }
 
 	if (totalUnitsMadeFromClicking >= 1) { unlockAchievement(5); }
 	if (totalUnitsMadeFromClicking >= 10) { unlockAchievement(6); }
@@ -1055,13 +1314,16 @@ function checkAchievements() {
 	if (rate >= 10) { unlockAchievement(11); }
 	if (rate >= 100) { unlockAchievement(12); }
 	if (rate >= 1000) { unlockAchievement(13); }
+	if (rate >= 10000) { unlockAchievement(35); }
+	if (rate >= 100000) { unlockAchievement(36); }
+	if (rate >= 1e6) { unlockAchievement(37); }
 }
 
 function checkItemsOwnedAchievements(phase) {
 	/* Unlock achievements when the user owns a 1, 10, or 50 of all items in the same phase */
 	var phaseItems = itemsByPhase[phase - 1];
 	var achievementIndices = [[26, 27, 28],
-		[],
+		[50, 51, 52],
 		[]];
 
 	var lowestOwned = Infinity;
@@ -1086,6 +1348,7 @@ function oncePerSecondUpdate() {
 	updateStatsPanel();
 	checkAchievements();
 	checkItemsOwnedAchievements(1);
+	checkItemsOwnedAchievements(2);
 
 	// Update the page title to reflect how many units the user has.
 	document.title = beautify(bank, 3) + " units - Incrementalism";

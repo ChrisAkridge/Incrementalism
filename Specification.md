@@ -56,7 +56,7 @@ An item is thing the user can buy with units. Each item provides a certain numbe
 	* Final Project:
 	    * Initial Cost: 489,275,000 units
 		* Rate: 64,250 units/second
-		
+
 ## Upgrades
 Upgrades are one-time purchases that improve some metric of the game (cost, income, etc.). Upgrades are unlocked when certain conditions are met, and can be bought at a given cost.
 
@@ -134,6 +134,55 @@ Upgrades are one-time purchases that improve some metric of the game (cost, inco
 		* Unlocked when the user has bought 10 WIOA Paperworks, 1 Orientation Presentation, 4 Stand-Up Guides, and 1 Front-End Class Project.
 		* Cost: 10,000,000 units.
 		* Effect: All income is tripled. Phase II is completed.
+	* Phase III Upgrades
+		* Trackball Mouse:
+			* Unlocked when the user has made 360 million units from clicking.
+			* Cost: 420 million units.
+			* Effect: Clicking gains 10% of the rate.
+		* Multi-touch Screen:
+			* Unlocked when the user has made 10.8 billion units from clicking.
+			* Cost: 168 billion units.
+			* Effect: Clicking is set equal to the rate.
+		* Speed Controls:
+			* Unlocked when the bank reaches 1 million units.
+			* Cost: 10 million units.
+			* Effect: Tech Events get +1% for every Treehouse Course you own. Treehouse Courses get +5% for every Tech Event you own.
+		* Pull Requests:
+			* Unlocked when "Speed Controls" is purchased.
+			* Cost: 10 billion units.
+			* Effect: GitHub Accounts get +0.1% for every HDMI Cable owned. HDMI Cables get +400% for every GitHub Account owned.
+		* Hackathon:
+			* Unlocked when "Pull Requests" is purchased.
+			* Cost: 10 trillion units.
+			* Effect: Tech Events get +2% for every WIOA Paperwork you own. WIOA Paperworks get +50% for every Tech Event you own.
+		* README.md:
+			* Unlocked when "Hackathon" is purchased.
+			* Cost: 10 quadrillion units.
+			* Effect: Final Projects get +0.01% for every other item owned.
+		* Store Loyalty Card:
+			* Unlocked when "README.md" is purchased.
+			* Cost: 10 quintillion units.
+			* Effect: Each manager now reduces item prices by 5%.
+		* Exponential Growth:
+			* Unlocked when "Store Loyalty Card" is purchased.
+			* Cost: 10 sextillion units.
+			* Effect: Each students now increases the rate by 5%.
+		* Responsive Design:
+			* Unlocked when "Exponential Growth" is purchased.
+			* Cost: 10 septillion units.
+			* Effect: *Improves the power of the Phase III special.*
+		* Market Street:
+			* Unlocked when "Responsive Design" is purchased.
+			* Cost: 10 octillion units.
+			* Effect: All income is tripled.
+		* Please and Thank You:
+			* Unlocked when "Market Street" is purchased.
+			* Cost: 10 nonillion units.
+			* Effect: All income is quadrupled.
+		* Code Louisville:
+			* Unlocked when "Please and Thank You" is purchased.
+			* Cost: 10 decillion units.
+			* Effect: All income is increased by a factor of ten. All prices are cut by 99.9999%. Phase III, and the game, is completed.
 
 ## Achievements
 
@@ -176,7 +225,7 @@ Upgrades are one-time purchases that improve some metric of the game (cost, inco
 	* Orientation: Earn 1 billion units.
 	* Dividends: Reach a rate of 10,000 units/second.
 	* Capital Gains: Reach a rate of 100,000 units/second.
-	* Certificates of Deposit: Reach a rate of 100,000 units/second.
+	* Certificates of Deposit: Reach a rate of 1 million units/second.
 	* Sign Here, Please: Own 1 WIOA Paperwork.
 	* Legal Procedures: Own 10 WIOA Paperworks.
 	* Read Carefully: Own 50 WIOA Paperworks.
