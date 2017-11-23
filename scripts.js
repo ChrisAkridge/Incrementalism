@@ -45,33 +45,18 @@ var hdmiCables = {
 	name: "HDMI Cables",
 	phase: 1,
 	cost: 10,
+	baseRate: 0.1,
 	rate: 0.1,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
-		if (fourKVideoSupport.bought) {
-			this.checkRate();
-			whiteboardWall.checkRate();
-			updateItemInfo(1 /* Whiteboard Walls */);
-		}
-
 		if (this.owned >= 1) { unlockAchievement(14); }
 		if (this.owned >= 10) { unlockAchievement(15); }
 		if (this.owned >= 50) { unlockAchievement(16); }
 	},
 	checkRate: function() {
-		if (!fourKVideoSupport.bought) {
-			this.rate =  0.1;
-		} else {
-			this.rate = 0.1 * (1 + (whiteboardWall.owned * 0.2));
-		}
-
-		if (enrollmentParking.bought) {
-			this.rate *= (1 + (standUpGuide.owned * 2));
-		}
-
-		if (dedicatedSpeakers.bought) { this.rate *= 2; }
-
+		this.rate = this.baseRate * (1 + this.synergyPower);
 		this.totalRate = this.owned * this.rate;
 	}
 };
@@ -81,26 +66,18 @@ var whiteboardWall = {
 	name: "Whiteboard Wall",
 	phase: 1,
 	cost: 125,
+	baseRate: 2,
 	rate: 2,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
-		if (fourKVideoSupport.bought) {
-			this.checkRate();
-			hdmiCables.checkRate();
-			updateItemInfo(0 /* HDMI Cables */)
-		}
-
 		if (this.owned >= 1) { unlockAchievement(17); }
 		if (this.owned >= 10) { unlockAchievement(18); }
 		if (this.owned >= 50) { unlockAchievement(19); }
 	},
 	checkRate: function() {
-		if (!fourKVideoSupport.bought) {
-			this.rate =  2;
-		} else {
-			this.rate = 2 * (1 + (hdmiCables.owned * 0.01));
-		}
+		this.rate = this.baseRate * (1 + this.synergyPower);
 		this.totalRate = this.owned * this.rate;
 	}
 };
@@ -110,13 +87,19 @@ var smartBoard = {
 	name: "SMART Board",
 	phase: 1,
 	cost: 375,
+	baseRate: 8,
 	rate: 8,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
 		if (this.owned >= 1) { unlockAchievement(20); }
 		if (this.owned >= 10) { unlockAchievement(21); }
 		if (this.owned >= 50) { unlockAchievement(22); }
+	},
+	checkRate: function() {
+		this.rate = this.baseRate * (1 + this.synergyPower);
+		this.totalRate = this.owned * this.rate;
 	}
 };
 items.push(smartBoard);
@@ -125,7 +108,9 @@ var lightingDeck = {
 	name: "Lighting Deck",
 	phase: 1,
 	cost: 1250,
+	baseRate: 17.5,
 	rate: 17.5,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
@@ -134,12 +119,7 @@ var lightingDeck = {
 		if (this.owned >= 50) { unlockAchievement(25); }
 	},
 	checkRate: function() {
-		if (!videoCommunicationsCenter.bought) {
-			this.rate = 17.5;
-		} else {
-			this.rate = 17.5 * (1 + (frontEndClassProject.owned * 0.1));
-		}
-
+		this.rate = this.baseRate * (1 + this.synergyPower);
 		this.totalRate = this.owned * this.rate;
 	}
 };
@@ -150,7 +130,9 @@ var wioaPaperwork = {
 	name: "WIOA Paperwork",
 	phase: 2,
 	cost: 14000,
+	baseRate: 35,
 	rate: 35,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
@@ -160,6 +142,10 @@ var wioaPaperwork = {
 		if (this.owned >= 1) { unlockAchievement(38); }
 		if (this.owned >= 10) { unlockAchievement(39); }
 		if (this.owned >= 50) { unlockAchievement(40); }
+	},
+	checkRate: function() {
+		this.rate = this.baseRate * (1 + this.synergyPower);
+		this.totalRate = this.owned * this.rate;
 	}
 };
 items.push(wioaPaperwork);
@@ -168,7 +154,9 @@ var orientationPresentation = {
 	name: "Orientation Presentation",
 	phase: 2,
 	cost: 85000,
+	baseRate: 75,
 	rate: 75,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
@@ -177,8 +165,7 @@ var orientationPresentation = {
 		if (this.owned >= 50) { unlockAchievement(43); }
 	},
 	checkRate: function() {
-		if (conciseExplanation.bought) { this.rate *= 2; }
-
+		this.rate = this.baseRate * (1 + this.synergyPower);
 		this.totalRate = this.owned * this.rate;
 	}
 };
@@ -188,30 +175,18 @@ var standUpGuide = {
 	name: "Stand-up Guide",
 	phase: 2,
 	cost: 190000,
+	baseRate: 140,
 	rate: 140,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
-		if (enrollmentParking.bought) {
-			hdmiCables.checkRate();
-			updateItemInfo(0 /* HDMI Cables */)
-		}
-
 		if (this.owned >= 1) { unlockAchievement(44); }
 		if (this.owned >= 10) { unlockAchievement(45); }
 		if (this.owned >= 50) { unlockAchievement(46); }
 	},
 	checkRate: function() {
-		if (!enrollmentParking.bought) {
-			this.rate = 140;
-		} else {
-			this.rate = 140 * (1 + (wioaPaperwork.owned * 0.01));
-		}
-
-		if (videoCommunicationsCenter.bought) {
-			rate *= (1 + (wioaPaperwork.owned * 0.05));
-		}
-
+		this.rate = this.baseRate * (1 + this.synergyPower);
 		this.totalRate = this.owned * this.rate;
 	}
 };
@@ -221,7 +196,9 @@ var frontEndClassProject = {
 	name: "Front-end Class Project",
 	phase: 2,
 	cost: 485000,
+	baseRate: 325,
 	rate: 325,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
@@ -231,6 +208,10 @@ var frontEndClassProject = {
 		if (this.owned >= 1) { unlockAchievement(47); }
 		if (this.owned >= 10) { unlockAchievement(48); }
 		if (this.owned >= 50) { unlockAchievement(49); }
+	},
+	checkRate: function() {
+		this.rate = this.baseRate * (1 + this.synergyPower);
+		this.totalRate = this.owned * this.rate;
 	}
 };
 items.push(frontEndClassProject);
@@ -240,10 +221,16 @@ var treehouseCourses = {
 	name: "Treehouse Courses",
 	phase: 3,
 	cost: 2.25e6,
+	baseRate: 1090,
 	rate: 1090,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
+	},
+	checkRate: function() {
+		this.rate = this.baseRate * (1 + this.synergyPower);
+		this.totalRate = this.owned * this.rate;
 	}
 };
 items.push(treehouseCourses);
@@ -252,10 +239,16 @@ var githubAccount = {
 	name: "GitHub Account",
 	phase: 3,
 	cost: 11.85e6,
+	baseRate: 4320,
 	rate: 4320,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
+	},
+	checkRate: function() {
+		this.rate = this.baseRate * (1 + this.synergyPower);
+		this.totalRate = this.owned * this.rate;
 	}
 };
 items.push(githubAccount);
@@ -264,10 +257,16 @@ var techEvents = {
 	name: "Tech Events",
 	phase: 3,
 	cost: 62.81e6,
+	baseRate: 8900,
 	rate: 8900,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
+	},
+	checkRate: function() {
+		this.rate = this.baseRate * (1 + this.synergyPower);
+		this.totalRate = this.owned * this.rate;
 	}
 };
 items.push(techEvents);
@@ -276,10 +275,22 @@ var finalProject = {
 	name: "Final Project",
 	phase: 3,
 	cost: 489.275e6,
+	baseRate: 64250,
 	rate: 64250,
+	synergyPower: 0,
 	owned: 0,
 	totalRate: 0,
-	onBuy: function() {}
+	onBuy: function() {
+		if (readme.bought) {
+			var otherItemsOwned = totalItemsOwned - this.owned;
+			this.synergyPower = 0.001 * otherItemsOwned;
+			this.checkRate();
+		}
+	},
+	checkRate: function() {
+		this.rate = this.baseRate * (1 + this.synergyPower);
+		this.totalRate = this.owned * this.rate;
+	}
 };
 items.push(finalProject);
 
@@ -353,13 +364,13 @@ var fourKVideoSupport = {
 	cost: 180,
 	bought: false,
 	onBuy: function() {
-		hdmiCables.checkRate();
-		whiteboardWall.checkRate();
+		synergyUpgrades[0].enabled = true;
+		synergyUpgrades[1].enabled = true;
+
+		initialCheckSynergy(whiteboardWall, 0);
+		initialCheckSynergy(hdmiCables, 1);
 
 		recalculateRate();
-
-		updateItemInfo(0);
-		updateItemInfo(1);
 	}
 };
 upgrades.push(fourKVideoSupport);
@@ -392,6 +403,7 @@ var dedicatedSpeakers = {
 	cost: 3750,
 	bought: false,
 	onBuy: function() {
+		hdmiCables.baseRate = 0.2;
 		hdmiCables.checkRate();
 		recalculateRate();
 		updateItemInfo(0 /* HDMI Cables */);
@@ -527,11 +539,13 @@ var enrollmentParking = {
 	cost: 28800,
 	bought: false,
 	onBuy: function() {
-		hdmiCables.checkRate();
-		updateItemInfo(0 /* HDMI Cables */);
+		synergyUpgrades[2].enabled = true;
+		synergyUpgrades[3].enabled = true;
 
-		standUpGuide.checkRate();
-		updateItemInfo(6 /* Stand-Up Guides */);
+		initialCheckSynergy(wioaPaperwork, 2);
+		initialCheckSynergy(standUpGuide, 3);
+
+		recalculateRate();
 	}
 };
 upgrades.push(enrollmentParking);
@@ -564,8 +578,8 @@ var conciseExplanation = {
 	cost: 195000,
 	bought: false,
 	onBuy: function() {
+		orientationPresentation.baseRate *= 2;
 		orientationPresentation.checkRate();
-		recalculateRate();
 		updateItemInfo(5 /* Orientation Presentations */);
 	}
 };
@@ -582,7 +596,11 @@ var videoCommunicationsCenter = {
 	cost: 985000,
 	bought: false,
 	onBuy: function() {
-		/* IMPLEMENT */
+		synergyUpgrades[4].enabled = true;
+		synergyUpgrades[5].enabled = true;
+
+		initialCheckSynergy(standUpGuide, 4);
+		initialCheckSynergy(frontEndClassProject, 5);
 	}
 };
 upgrades.push(videoCommunicationsCenter);
@@ -628,7 +646,6 @@ var startTheCourses = {
 		unlockAchievement(53);
 		$("#stars").css('display', 'flex');
 		$("#phase-2-star").show();
-		// $("#phase-1-special").css('display', 'flex');
 		$("#phase-3-items").css('display', 'flex');
 		$("#phase-3-items").css('flex-direction', 'column');
 	}
@@ -682,7 +699,11 @@ var speedControls = {
 	cost: 10e6,
 	bought: false,
 	onBuy: function() {
-		/* IMPLEMENT */
+		synergyUpgrades[6].enabled = true;
+		synergyUpgrades[7].enabled = true;
+
+		initialCheckSynergy(treehouseCourses, 6);
+		initialCheckSynergy(techEvents, 7);
 	}
 }
 upgrades.push(speedControls);
@@ -698,7 +719,11 @@ var pullRequests = {
 	cost: 10e9,
 	bought: false,
 	onBuy: function() {
-		/* IMPLEMENT */
+		synergyUpgrades[8].enabled = true;
+		synergyUpgrades[9].enabled = true;
+
+		initialCheckSynergy(hdmiCables, 8);
+		initialCheckSynergy(githubAccount, 9);
 	}
 }
 upgrades.push(pullRequests);
@@ -714,7 +739,11 @@ var hackathon = {
 	cost: 10e12,
 	bought: false,
 	onBuy: function() {
-		/* IMPLEMENT */
+		synergyUpgrades[10].enabled = true;
+		synergyUpgrades[11].enabled = true;
+
+		initialCheckSynergy(wioaPaperwork, 10);
+		initialCheckSynergy(techEvents, 11);
 	}
 }
 upgrades.push(hackathon);
@@ -729,15 +758,13 @@ var readme = {
 	unlocked: false,
 	cost: 10e15,
 	bought: false,
-	onBuy: function() {
-		/* IMPLEMENT */
-	}
+	onBuy: function() {}
 }
 upgrades.push(readme);
 
 var storeLoyaltyCard = {
 	name: 'Store Loyalty Card',
-	desc: 'Each manager now reduces item prices by 5%.',
+	desc: 'Each mentor now reduces item prices by 5%.',
 	phase: 3,
 	checkUnlock: function() {
 		return readme.bought;
@@ -746,7 +773,17 @@ var storeLoyaltyCard = {
 	cost: 10e18,
 	bought: false,
 	onBuy: function() {
-		/* IMPLEMENT */
+		var totalMentorDiscount = Math.pow(0.99, mentors.owned);
+		var newMentorDiscount = Math.pow(0.95, mentors.owned);
+		mentors.discountPower = 0.05;
+
+		for (var i in items) {
+			items[i].cost *= (1 / totalMentorDiscount);
+			items[i].cost *= newMentorDiscount;
+			updateItemInfo(i);
+		}
+
+		$("#mentor-info").text('Bring in a Mentor (-5% to all item prices)');
 	}
 }
 upgrades.push(storeLoyaltyCard);
@@ -762,7 +799,7 @@ var exponentialGrowth = {
 	cost: 10e21,
 	bought: false,
 	onBuy: function() {
-		/* IMPLEMENT */
+		students.exponentialGrowthBought();
 	}
 }
 upgrades.push(exponentialGrowth);
@@ -820,15 +857,22 @@ var codeLouisville = {
 	desc: 'All income is multiplied by 10. All prices cut by 99.9999%.',
 	phase: 3,
 	checkUnlock: function() {
-		return responsiveDesign.bought;
+		return pleaseAndThankYou.bought;
 	},
 	unlocked: false,
 	cost: 10e33,
 	bought: false,
 	onBuy: function() {
 		multiplier *= 10;
-		/* IMPLEMENT 99.9999% DISCOUNT */
-		/* ALSO WIN THE GAME */
+
+		for (var i in items) {
+			items[i].cost *= 0.000001;
+		}
+
+		/* Phase III and the game is completed! */
+		// unlockAchievement(53);
+		$("#phase-3-star").show();
+		// Show a modal box saying that you won
 	}
 }
 upgrades.push(codeLouisville);
@@ -899,20 +943,18 @@ achievements.push({name: 'Proper Direction', desc: 'Own 10 of every Phase II Ite
 achievements.push({name: 'Ready for the Course', desc: 'Own 50 of every Phase II Item.', unlocked: false}); // 52
 achievements.push({name: 'Everything\'s Ready', desc: 'Buy "Start the Courses!"', unlocked: false}); // 53
 
-
-
-
 // ==== Phase 1 Specials ====
 var mentors = {
 	cost: 100,
 	priceMultiplier: 1.5,
+	discountPower: 0.01,
 	owned: 0,
 	onBuy: function() {
 		bank -= this.cost;
 		this.cost *= this.priceMultiplier;
 		this.owned++;
 		for (var i in items) {
-			items[i].cost *= 0.99;
+			items[i].cost *= (1 - this.discountPower);
 			updateItemInfo(i);
 		}
 		$("#hired-mentors").text(this.owned);
@@ -924,12 +966,13 @@ var mentors = {
 var students = {
 	cost: 100,
 	priceMultiplier: 2,
+	studentPower: 0.01,
 	owned: 0,
 	onBuy: function() {
 		bank -= this.cost;
 		this.cost *= this.priceMultiplier;
 		this.owned++;
-		studentMultiplier += 0.01;
+		studentMultiplier += this.studentPower;
 		for (var i in items) {
 			updateItemInfo(i);
 		}
@@ -937,6 +980,15 @@ var students = {
 		$("#student-cost").text("Cost: " + beautify(this.cost, 0));
 		recalculateRate();
 		checkSpecialsUnlocked();
+	},
+	exponentialGrowthBought: function() {
+		this.studentPower = 0.05;
+		studentMultiplier = 1 + (this.owned * this.studentPower);
+		recalculateRate();
+		for (var i in items) {
+			updateItemInfo(i);
+		}
+		$('#student-info').text('Enroll a Student (+5% to the rate)');
 	}
 }
 
@@ -1019,8 +1071,40 @@ for (var i in achievements) {
 	buildAchievementHTML(achievements[i], i);
 }
 
-// $("#phase-2-items").hide();
-// $("#phase-3-items").hide();
+// Many upgrades are of the form "X's get +Y% for every Z you own"
+// We could do it with quite a few if statements, or we could try to condense it a bit
+var synergyUpgrades = [];
+synergyUpgrades.push({forEvery: whiteboardWall, poweredUnit: hdmiCables, power: 0.2, enabled: false});			// 0 [4K Video Support]
+synergyUpgrades.push({forEvery: hdmiCables, poweredUnit: whiteboardWall, power: 0.01, enabled: false});			// 1
+synergyUpgrades.push({forEvery: wioaPaperwork, poweredUnit: standUpGuide, power: 0.01, enabled: false});		// 2 [Enrollment Parking]
+synergyUpgrades.push({forEvery: standUpGuide, poweredUnit: hdmiCables, power: 2, enabled: false});				// 3
+synergyUpgrades.push({forEvery: standUpGuide, poweredUnit: wioaPaperwork, power: 0.05, enabled: false});		// 4 [Video Communications Center]
+synergyUpgrades.push({forEvery: frontEndClassProject, poweredUnit: lightingDeck, power: 0.1, enabled: false});	// 5
+synergyUpgrades.push({forEvery: treehouseCourses, poweredUnit: techEvents, power: 0.01, enabled: false});		// 6 [Speed Controls]
+synergyUpgrades.push({forEvery: techEvents, poweredUnit: treehouseCourses, power: 0.05, enabled: false});		// 7
+synergyUpgrades.push({forEvery: hdmiCables, poweredUnit: githubAccount, power: 0.001, enabled: false});			// 8 [Pull Requests]
+synergyUpgrades.push({forEvery: githubAccount, poweredUnit: hdmiCables, power: 4, enabled: false});				// 9
+synergyUpgrades.push({forEvery: wioaPaperwork, poweredUnit: techEvents, power: 0.02, enabled: false});			// 10 [Hackathon]
+synergyUpgrades.push({forEvery: techEvents, poweredUnit: wioaPaperwork, power: 0.5, enabled: false});			// 11
+
+function checkSynergy(item) {
+	for (var i in synergyUpgrades) {
+		var upgrade = synergyUpgrades[i];
+		if (upgrade.forEvery === item && upgrade.enabled) {
+			upgrade.poweredUnit.synergyPower += upgrade.power;
+			upgrade.poweredUnit.checkRate();
+			updateItemInfo(items.indexOf(upgrade.poweredUnit));
+		}
+	}
+}
+
+function initialCheckSynergy(item, upgradeIndex) {
+	var upgrade = synergyUpgrades[upgradeIndex];
+	var totalPower = item.owned * upgrade.power;
+	upgrade.poweredUnit.synergyPower += totalPower;
+	upgrade.poweredUnit.checkRate();
+	updateItemInfo(items.indexOf(upgrade.poweredUnit));
+}
 
 // ==== Core Variables and Functionality ====
 var bank = 0;
@@ -1179,10 +1263,14 @@ function assignItemClickHandlers() {
 				totalItemsOwned++;
 				item.totalRate = item.rate * item.owned;
 				item.onBuy();
+				checkSynergy(item);
 				recalculateRate();
 				updateItemInfo(event.data.index);
 				checkItemUnlocked(event.data.index);
 				checkItemsOwnedAchievements();
+				if (readme.bought) {
+					updateItemInfo(11 /* Final Project */);
+				}
 			}
 		});
 	}
@@ -1351,7 +1439,7 @@ function oncePerSecondUpdate() {
 	checkItemsOwnedAchievements(2);
 
 	// Update the page title to reflect how many units the user has.
-	document.title = beautify(bank, 3) + " units - Incrementalism";
+	document.title = beautify(Math.floor(bank), 3) + " units - Incrementalism";
 }
 
 setInterval(oncePerSecondUpdate, 1000);
