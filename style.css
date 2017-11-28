@@ -112,6 +112,45 @@ h1 {
 	background-color: #8B8B8B;
 }
 
+/* ==== Phase 2 Special ==== */
+#phase-2-special {
+	display: block;
+}
+
+#powerup-timer {
+	display: none;
+	width: 100%;
+	padding: 13px 0;
+	text-align: center;
+	font-size: 32px;
+	background-color: #6B6B6B;
+}
+
+#powerup-container {
+	display: none;
+	height: 65px;
+}
+
+#powerup-description {
+	font-size: 1.5rem;
+	width: 10%;
+	text-align: center;
+	line-height: 65px;
+}
+
+.powerup-container {
+	border: 1px solid black;
+	width: 30%;
+}
+
+.powerup-name {
+	font-weight: bold;
+}
+
+.phase-2-special-disabled {
+	background-color: #8B8B8B;
+}
+
 /* ==== Item Panel ==== */
 #buyable-container {
 	display: flex;

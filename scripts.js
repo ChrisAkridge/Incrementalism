@@ -31,6 +31,19 @@ function percent(number, places = 2) {
 	return (number * 100).toLocaleString('en-US', {maximumFractionDigits: places}) + "%";
 }
 
+function timeDisplay(seconds) {
+	var minutes = Math.floor(seconds / 60);
+	seconds = seconds % 60;
+
+	var secondsText = (seconds < 10) ? '0' + seconds : seconds;
+	return minutes + ':' + secondsText;
+}
+
+function getUnixNowMS() {
+	// https://stackoverflow.com/a/9575869/2709212
+	return (new Date()).getTime();
+}
+
 // ==== Define Items, Upgrades, and Achievements ====
 
 var phasesUnlocked = [true, false, false];
@@ -648,6 +661,9 @@ var startTheCourses = {
 		$("#phase-2-star").show();
 		$("#phase-3-items").css('display', 'flex');
 		$("#phase-3-items").css('flex-direction', 'column');
+
+		$("#powerup-timer").show();
+		startUnlockTimer();
 	}
 };
 upgrades.push(startTheCourses);
@@ -992,6 +1008,146 @@ var students = {
 	}
 }
 
+// ==== Phase 2 Specials ====
+var nextUnlockTime;
+var unlockCountdownActive = false;
+var powerupCountdownActive = false;
+var powerupExpiresTime;
+var currentItemAffected = -1;		// -1 means no item, 0-11 indicates the index of an item
+var currentPowerupType = 0;			// 0: no powerup, 1: discount, 2: rate increase, 3: global rate increase
+
+function startUnlockTimer() {
+	// Set the powerup to be unlocked five minutes from now
+	var now = getUnixNowMS();
+	nextUnlockTime = now + 300000;	// 300,000 milliseconds = 300 seconds = 5 minutes
+	unlockCountdownActive = true;
+
+	// Hide the powerup container and show the timer
+	$("#powerup-container").css('display', 'none');
+	$("#powerup-timer").css('display', 'block');
+}
+
+function unlockPowerups() {
+	$("#powerup-timer").hide();
+	$("#powerup-container").css('display', 'flex');
+}
+
+function startPowerup(powerupType) {
+	currentItemAffected = Math.floor(Math.random() * 12);
+	powerupExpiresTime = getUnixNowMS() + 120000;	// 120,000 ms = 2 minutes
+	currentPowerupType = powerupType;
+	powerupCountdownActive = true;
+}
+
+$("#price-powerup-container").click(function() {
+	startPowerup(1);
+
+	items[currentItemAffected].cost *= 0.1;
+	updateItemInfo(currentItemAffected);
+
+	startUnlockTimer();
+});
+
+$("#singlerate-powerup-container").click(function() {
+	startPowerup(2);
+
+	items[currentItemAffected].synergyPower += getSingleRatePower(currentItemAffected);
+	items[currentItemAffected].checkRate();
+	recalculateRate();
+	updateItemInfo(currentItemAffected);
+
+	startUnlockTimer();
+});
+
+$("#globalrate-powerup-container").click(function() {
+	startPowerup(3);
+
+	multiplier *= 3;
+	recalculateRate();
+
+	startUnlockTimer();
+});
+
+function getSingleRatePower(index) {
+	// Final Projects should get 2x to their rate with a single-item rate increase
+	// HDMI Cables should get a 200x increase
+	// The scale is linear, so each item's multiplier should be 18x more than the last
+
+	return 2 + ((11 - index) * 18);
+}
+
+function updateTimers() {
+	// The #powerup-timer div counts down to the next powerup
+	// Discounted items have a discount amount and timer next to their price (i.e. "Cost: 1 (-90% for 1:32)")
+	// Increased rate on a single item has an amount and timer next to their rate (i.e. "Rate: 20 (200x for 1:32)")
+	// Global rate increase gives an amount and timer next to the rate (i.e. "20.00 units per second (3x for 1:32)")
+	var now = getUnixNowMS();
+
+	if (unlockCountdownActive) {
+		var secondsTillUnlock = Math.floor((nextUnlockTime - now) / 1000);
+
+		if (secondsTillUnlock < 0) {
+			unlockPowerups();
+			unlockCountdownActive = false;
+		} else {
+			$("#powerup-timer").text(timeDisplay(secondsTillUnlock));
+		}
+	}
+
+	if (powerupCountdownActive) {
+		if (currentPowerupType === 1) {
+			updateDiscountTimer();
+		} else if (currentPowerupType === 2) {
+			updateSingleRateTimer();
+		} else if (currentPowerupType === 3) {
+			updateGlobalRateTimer();
+		}
+	}
+}
+
+function updateDiscountTimer() {
+	var item = items[currentItemAffected];
+	var secondsLeft = Math.floor((powerupExpiresTime - getUnixNowMS()) / 1000);
+	updateItemInfo(currentItemAffected);
+
+	if (secondsLeft < 0) {
+		item.cost *= 10;
+		updateItemInfo(currentItemAffected)
+		currentItemAffected = -1;
+		currentPowerupType = 0;
+		powerupCountdownActive = false;
+	}
+}
+
+function updateSingleRateTimer() {
+	var item = items[currentItemAffected];
+	var secondsLeft = Math.floor((powerupExpiresTime - getUnixNowMS()) / 1000);
+	updateItemInfo(currentItemAffected);
+
+	if (secondsLeft < 0) {
+		item.synergyPower -= getSingleRatePower(currentItemAffected);
+		item.checkRate();
+		updateItemInfo(currentItemAffected);
+		recalculateRate();
+		currentItemAffected = -1;
+		currentPowerupType = 0;
+		powerupCountdownActive = false;
+	}
+}
+
+function updateGlobalRateTimer() {
+	var $rateDiv = $("#rate");
+	var secondsLeft = Math.floor((powerupExpiresTime - getUnixNowMS()) / 1000);
+	$("#rate").text(getRateText());
+
+	if (secondsLeft < 0) {
+		multiplier /= 3;
+		recalculateRate();
+		currentPowerupType = 0;
+		powerupCountdownActive = false;
+	}
+}
+
 // ==== Build HTML for Items, Upgrades, and Achievements
 
 function buildItemHTML(item, index) {
@@ -1159,7 +1315,7 @@ function recalculateRate() {
 
 	recalcUnitsPerClick();
 
-	$("#rate").html(beautify(rate) + " units per second");
+	$("#rate").html(getRateText());
 }
 
 // ==== Update Locked and Unlocked Objects ====
@@ -1345,11 +1501,43 @@ function updateGameInfo() {
 	}
 }
 
+function getRateText() {
+	var base = beautify(rate) + " units per second";
+
+	if (powerupCountdownActive && currentPowerupType === 3) {
+		var secondsLeft = Math.floor((powerupExpiresTime - getUnixNowMS()) / 1000);
+		if (secondsLeft < 0) { return base; }
+		base += ' (3x for ' + timeDisplay(secondsLeft) + ')';
+	}
+
+	return base;
+}
+
 function updateItemInfo(index) {
 	var item = items[index];
 	$("#owned-" + index).text(item.owned);
-	$("#cost-" + index).text("Cost: " + beautify(item.cost, 0));
-	$("#rate-" + index).text("Rate: " + beautify(item.rate * multiplier * studentMultiplier));
+	$("#cost-" + index).text("Cost: " + beautify(item.cost, 0) + getCostPowerupText(index));
+	$("#rate-" + index).text("Rate: " + beautify(item.rate * multiplier * studentMultiplier) + getRatePowerupText(index));
+}
+
+function getCostPowerupText(index) {
+	if (currentPowerupType === 1 && currentItemAffected === index) {
+		var secondsLeft = Math.floor((powerupExpiresTime - getUnixNowMS()) / 1000);
+		if (secondsLeft < 0) { return ''; }
+		return ' (-90% for ' + timeDisplay(secondsLeft) + ')';
+	} else {
+		return '';
+	}
+}
+
+function getRatePowerupText(index) {
+	if (currentPowerupType === 2 && currentItemAffected === index) {
+		var secondsLeft = Math.floor((powerupExpiresTime - getUnixNowMS()) / 1000);
+		if (secondsLeft < 0) { return ''; }
+		return ' (' + getSingleRatePower(index) + 'x for ' + timeDisplay(secondsLeft) + ')';
+	} else {
+		return '';
+	}
 }
 
 function unlockAchievement(index) {
@@ -1437,6 +1625,7 @@ function oncePerSecondUpdate() {
 	checkAchievements();
 	checkItemsOwnedAchievements(1);
 	checkItemsOwnedAchievements(2);
+	updateTimers();
 
 	// Update the page title to reflect how many units the user has.
 	document.title = beautify(Math.floor(bank), 3) + " units - Incrementalism";
