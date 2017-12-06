@@ -294,15 +294,15 @@ var finalProject = {
 	owned: 0,
 	totalRate: 0,
 	onBuy: function() {
-		if (readme.bought) {
-			var otherItemsOwned = totalItemsOwned - this.owned;
-			this.synergyPower = 0.001 * otherItemsOwned;
-			this.checkRate();
-		}
 	},
 	checkRate: function() {
 		this.rate = this.baseRate * (1 + this.synergyPower);
 		this.totalRate = this.owned * this.rate;
+
+		if (readme.bought) {
+			var otherItemsOwned = totalItemsOwned - this.owned;
+			this.synergyPower = 0.001 * otherItemsOwned;
+		}
 	}
 };
 items.push(finalProject);
@@ -774,7 +774,9 @@ var readme = {
 	unlocked: false,
 	cost: 10e15,
 	bought: false,
-	onBuy: function() {}
+	onBuy: function() {
+		updateItemInfo(11 /* Final Project */);
+	}
 }
 upgrades.push(readme);
 
@@ -822,7 +824,7 @@ upgrades.push(exponentialGrowth);
 
 var responsiveDesign = {
 	name: 'Responsive Design',
-	desc: '<em>Improves the power of the Phase III special</em>',
+	desc: 'The next powerups only take 3:00 to charge and last for 2:45.',
 	phase: 3,
 	checkUnlock: function() {
 		return exponentialGrowth.bought;
@@ -831,7 +833,8 @@ var responsiveDesign = {
 	cost: 10e24,
 	bought: false,
 	onBuy: function() {
-		/* IMPLEMENT */
+		msToUnlock = 180000;
+		powerupLengthMs = 165000;
 	}
 }
 upgrades.push(responsiveDesign);
@@ -848,6 +851,9 @@ var marketStreet = {
 	bought: false,
 	onBuy: function() {
 		multiplier *= 3;
+		for (var i in items) {
+			updateItemInfo(i);
+		}
 	}
 }
 upgrades.push(marketStreet);
@@ -864,6 +870,9 @@ var pleaseAndThankYou = {
 	bought: false,
 	onBuy: function() {
 		multiplier *= 4;
+		for (var i in items) {
+			updateItemInfo(i);
+		}
 	}
 }
 upgrades.push(pleaseAndThankYou);
@@ -880,9 +889,9 @@ var codeLouisville = {
 	bought: false,
 	onBuy: function() {
 		multiplier *= 10;
-
 		for (var i in items) {
 			items[i].cost *= 0.000001;
+			updateItemInfo(i);
 		}
 
 		/* Phase III and the game is completed! */
@@ -893,7 +902,7 @@ var codeLouisville = {
 }
 upgrades.push(codeLouisville);
 
-upgrades.sort(function(a, b) { return b.cost - a.cost; });
+upgrades.sort(function(a, b) { return a.cost - b.cost; });
 
 var upgradesByPhase = [[], [], []];
 for (var i in upgrades) {
@@ -1015,11 +1024,13 @@ var powerupCountdownActive = false;
 var powerupExpiresTime;
 var currentItemAffected = -1;		// -1 means no item, 0-11 indicates the index of an item
 var currentPowerupType = 0;			// 0: no powerup, 1: discount, 2: rate increase, 3: global rate increase
+var msToUnlock = 300000;
+var powerupLengthMs = 120000;
 
 function startUnlockTimer() {
 	// Set the powerup to be unlocked five minutes from now
 	var now = getUnixNowMS();
-	nextUnlockTime = now + 300000;	// 300,000 milliseconds = 300 seconds = 5 minutes
+	nextUnlockTime = now + msToUnlock;
 	unlockCountdownActive = true;
 
 	// Hide the powerup container and show the timer
@@ -1034,7 +1045,7 @@ function unlockPowerups() {
 
 function startPowerup(powerupType) {
 	currentItemAffected = Math.floor(Math.random() * 12);
-	powerupExpiresTime = getUnixNowMS() + 120000;	// 120,000 ms = 2 minutes
+	powerupExpiresTime = getUnixNowMS() + powerupLengthMs;
 	currentPowerupType = powerupType;
 	powerupCountdownActive = true;
 }
@@ -1408,7 +1419,8 @@ $("#rate").click(function() {
 function assignItemClickHandlers() {
 	for (var i in items) {
 		$("#item-" + i).click({index: i}, function(event) {
-			var item = items[event.data.index];
+			var index = Number(event.data.index);
+			var item = items[index];
 			if (bank < item.cost) {
 				return;
 			} else {
@@ -1420,13 +1432,14 @@ function assignItemClickHandlers() {
 				item.totalRate = item.rate * item.owned;
 				item.onBuy();
 				checkSynergy(item);
-				recalculateRate();
-				updateItemInfo(event.data.index);
-				checkItemUnlocked(event.data.index);
-				checkItemsOwnedAchievements();
 				if (readme.bought) {
+					finalProject.checkRate();
 					updateItemInfo(11 /* Final Project */);
 				}
+				recalculateRate();
+				updateItemInfo(index);
+				checkItemUnlocked(index);
+				checkItemsOwnedAchievements();
 			}
 		});
 	}

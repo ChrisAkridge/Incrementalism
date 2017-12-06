@@ -9,8 +9,8 @@ The user starts with a bank of 0 units. They can click the bank to increase it b
 
 Gameplay is divided into three phases:
 * Phase I: From the start of the game until the "Complete Classroom" upgrade is bought (lifetime earnings should be about 30,000 units or so). The user can buy items and upgrades for those items.
-** Phase II: At the end of Phase I until the "Complete Syllabus" upgrade is bought (lifetime earnings should be about 2 billion or so). The user can bring in mentors and enroll students to reduce prices and increase the rate of income, respectively.
-*** Phase III: At the end of Phase II until the "Graduation" upgrade is bought (lifetime earnings should be about 1 decillion or so). The user gets a series of powerful upgrades and boosts.
+* Phase II: At the end of Phase I until the "Complete Syllabus" upgrade is bought (lifetime earnings should be about 2 billion or so). The user can bring in mentors and enroll students to reduce prices and increase the rate of income, respectively.
+* Phase III: At the end of Phase II until the "Graduation" upgrade is bought (lifetime earnings should be about 1 decillion or so). The user gets a series of powerful upgrades and boosts.
 
 ## Items
 An item is thing the user can buy with units. Each item provides a certain number of units per second, called its rate. The price of each successive item is 15% higher than the last, compounded.
@@ -134,55 +134,55 @@ Upgrades are one-time purchases that improve some metric of the game (cost, inco
 		* Unlocked when the user has bought 10 WIOA Paperworks, 1 Orientation Presentation, 4 Stand-Up Guides, and 1 Front-End Class Project.
 		* Cost: 10,000,000 units.
 		* Effect: All income is tripled. Phase II is completed.
-	* Phase III Upgrades
-		* Trackball Mouse:
-			* Unlocked when the user has made 360 million units from clicking.
-			* Cost: 420 million units.
-			* Effect: Clicking gains 10% of the rate.
-		* Multi-touch Screen:
-			* Unlocked when the user has made 10.8 billion units from clicking.
-			* Cost: 168 billion units.
-			* Effect: Clicking is set equal to the rate.
-		* Speed Controls:
-			* Unlocked when the bank reaches 1 million units.
-			* Cost: 10 million units.
-			* Effect: Tech Events get +1% for every Treehouse Course you own. Treehouse Courses get +5% for every Tech Event you own.
-		* Pull Requests:
-			* Unlocked when "Speed Controls" is purchased.
-			* Cost: 10 billion units.
-			* Effect: GitHub Accounts get +0.1% for every HDMI Cable owned. HDMI Cables get +400% for every GitHub Account owned.
-		* Hackathon:
-			* Unlocked when "Pull Requests" is purchased.
-			* Cost: 10 trillion units.
-			* Effect: Tech Events get +2% for every WIOA Paperwork you own. WIOA Paperworks get +50% for every Tech Event you own.
-		* README.md:
-			* Unlocked when "Hackathon" is purchased.
-			* Cost: 10 quadrillion units.
-			* Effect: Final Projects get +0.01% for every other item owned.
-		* Store Loyalty Card:
-			* Unlocked when "README.md" is purchased.
-			* Cost: 10 quintillion units.
-			* Effect: Each manager now reduces item prices by 5%.
-		* Exponential Growth:
-			* Unlocked when "Store Loyalty Card" is purchased.
-			* Cost: 10 sextillion units.
-			* Effect: Each students now increases the rate by 5%.
-		* Responsive Design:
-			* Unlocked when "Exponential Growth" is purchased.
-			* Cost: 10 septillion units.
-			* Effect: *Improves the power of the Phase III special.*
-		* Market Street:
-			* Unlocked when "Responsive Design" is purchased.
-			* Cost: 10 octillion units.
-			* Effect: All income is tripled.
-		* Please and Thank You:
-			* Unlocked when "Market Street" is purchased.
-			* Cost: 10 nonillion units.
-			* Effect: All income is quadrupled.
-		* Code Louisville:
-			* Unlocked when "Please and Thank You" is purchased.
-			* Cost: 10 decillion units.
-			* Effect: All income is increased by a factor of ten. All prices are cut by 99.9999%. Phase III, and the game, is completed.
+* Phase III Upgrades
+	* Trackball Mouse:
+		* Unlocked when the user has made 360 million units from clicking.
+		* Cost: 420 million units.
+		* Effect: Clicking gains 10% of the rate.
+	* Multi-touch Screen:
+		* Unlocked when the user has made 10.8 billion units from clicking.
+		* Cost: 168 billion units.
+		* Effect: Clicking is set equal to the rate.
+	* Speed Controls:
+		* Unlocked when the bank reaches 1 million units.
+		* Cost: 10 million units.
+		* Effect: Tech Events get +1% for every Treehouse Course you own. Treehouse Courses get +5% for every Tech Event you own.
+	* Pull Requests:
+		* Unlocked when "Speed Controls" is purchased.
+		* Cost: 10 billion units.
+		* Effect: GitHub Accounts get +0.1% for every HDMI Cable owned. HDMI Cables get +400% for every GitHub Account owned.
+	* Hackathon:
+		* Unlocked when "Pull Requests" is purchased.
+		* Cost: 10 trillion units.
+		* Effect: Tech Events get +2% for every WIOA Paperwork you own. WIOA Paperworks get +50% for every Tech Event you own.
+	* README.md:
+		* Unlocked when "Hackathon" is purchased.
+		* Cost: 10 quadrillion units.
+		* Effect: Final Projects get +0.01% for every other item owned.
+	* Store Loyalty Card:
+		* Unlocked when "README.md" is purchased.
+		* Cost: 10 quintillion units.
+		* Effect: Each manager now reduces item prices by 5%.
+	* Exponential Growth:
+		* Unlocked when "Store Loyalty Card" is purchased.
+		* Cost: 10 sextillion units.
+		* Effect: Each students now increases the rate by 5%.
+	* Responsive Design:
+		* Unlocked when "Exponential Growth" is purchased.
+		* Cost: 10 septillion units.
+		* Effect: *Improves the power of the Phase III special.*
+	* Market Street:
+		* Unlocked when "Responsive Design" is purchased.
+		* Cost: 10 octillion units.
+		* Effect: All income is tripled.
+	* Please and Thank You:
+		* Unlocked when "Market Street" is purchased.
+		* Cost: 10 nonillion units.
+		* Effect: All income is quadrupled.
+	* Code Louisville:
+		* Unlocked when "Please and Thank You" is purchased.
+		* Cost: 10 decillion units.
+		* Effect: All income is increased by a factor of ten. All prices are cut by 99.9999%. Phase III, and the game, is completed.
 
 ## Achievements
 
@@ -242,3 +242,44 @@ Upgrades are one-time purchases that improve some metric of the game (cost, inco
 	* Proper Direction: Own 10 of every Phase II building.
 	* Ready for the Course: Own 50 of every Phase II building.
 	* Everything's Ready: Buy "Start the Courses".
+* Phase III Achievements
+	* Weekly Meetings: Earn 10 billion units.
+	* Stand-Up Tables: Earn 100 billion units.
+	* Loud Music...: Earn 1 trillion units.
+	* ...and Hot Coffee: Earn 100 trillion units.
+	* Parking Meters: Earn 1 quadrillion units.
+	* Rush Hour: Earn 1 quintillion units.
+	* Floyd Street: Earn 1 sextillion units.
+	* Slack Channels: Earn 1 septillion units.
+	* Complete the Videos: Earn 1 octillion units.
+	* Attend the Meetings: Earn 1 nonillion units.
+	* Complete Your Project: Earn 1 decillion units.
+	* The Final Meeting: Earn 10 decillion units.
+	* Call Your Brokers: Reach a rate of 10 million units/second.
+	* Liquid Assets: Reach a rate of 100 million units/second.
+	* Currency Exchanges: Reach a rate of 1 billion units/second.
+	* Mark-to-Market: Reach a rate of 100 billion units/second.
+	* Risk-averse: Reach a rate of 1 trillion units/second.
+	* Cash Flow: Reach a rate of 1 quadrillion units/second.
+	* Accrual: Reach a rate of 1 quintillion units/second.
+	* Accounts Payable: Reach a rate of 1 sextillion units/second.
+	* Options Market: Reach a rate of 1 septillion units/second.
+	* Hedge Fund: Reach a rate of 1 octillion units/second.
+	* Monetary Policy: Reach a rate of 1 nonillion units/second.
+	* The Economy: Reach a rate of 10 nonillion units/second.
+	* Learning On Demand: Own 1 Treehouse Course.
+	* Quizzes and Code Challenges: Own 10 Treehouse Courses.
+	* Syllabus: Own 50 Treehouse Courses.
+	* Version Control: Own 1 GitHub Account.
+	* Push, Pull, Commit, Revert: Own 10 GitHub Accounts.
+	* Issue Tracker: Own 50 GitHub Accounts.
+	* The Power of Networking: Own 1 Tech Event.
+	* Elevator Pitch: Own 10 Tech Events.
+	* Establishing Connections: Own 50 Tech Events.
+	* Responsive Design: Own 1 Final Project.
+	* Well-Commented: Own 10 Final Projects.
+	* Custom Code: Own 50 Final Projects.
+	* These 12 Weeks: Own 1 of every Phase III Building.
+	* Learning the Future: Own 10 of every Phase III Building.
+	* This End of the Course: Own 50 of every Phase III Building.
+	* Graduation: Buy "Code Louisville".
