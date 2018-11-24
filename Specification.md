@@ -246,7 +246,7 @@ Upgrades are one-time purchases that improve some metric of the game (cost, inco
 	* Weekly Meetings: Earn 10 billion units.
 	* Stand-Up Tables: Earn 100 billion units.
 	* Loud Music...: Earn 1 trillion units.
-	* ...and Hot Coffee: Earn 100 trillion units.
+	* ...and No Decaf: Earn 100 trillion units.
 	* Parking Meters: Earn 1 quadrillion units.
 	* Rush Hour: Earn 1 quintillion units.
 	* Floyd Street: Earn 1 sextillion units.
